@@ -1,7 +1,4 @@
-""" uffmail generator.
-Reads a .csv file with students informations, searches for a student by enrollment number
-and returns a list of uffmail options based on the student's name.
-"""
+""" file containing uffmail generator student class """
 from csv import reader
 
 
@@ -21,7 +18,7 @@ class Student:
 
 
     @staticmethod
-    def csv_reader(file):
+    def csv_reader(file, enrollment_number):
         """ instantiates a student with the information read from a .csv file passed as an argument
         """
         with open(file, encoding='utf_8') as arq:
@@ -63,9 +60,3 @@ class Student:
     def get_status(self):
         """ returns student subscription status """
         return self.__status
-
-
-enrollment_number = input("Insira o número da matrícula:\n")
-
-aluno = Student.csv_reader("alunos.csv")
-print(aluno.get_name())
