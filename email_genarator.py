@@ -2,10 +2,8 @@
 Reads a .csv file with students informations, searches for a student by enrollment number
 and returns a list of uffmail options based on the student's name.
 """
-
 from csv import reader
 
-enrollment_number = input("Insira o número da matrícula:\n")
 
 class Student:
     """ Class of student containing name, enrollment, telephone, email, uffmail (if any)
@@ -13,25 +11,28 @@ class Student:
     method for reading .csv file with student information and
     uffmail generation method based on student name
     """
-    def __init__(self, name, enrollment, phone, email, uffmail, status):
-        self.__name = name
-        self.__enrollment = enrollment
-        self.__phone = phone
-        self.__email = email
-        self.__uffmail = uffmail
-        self.__status = status
+    def __init__(self, student):
+        self.__name = student[0]
+        self.__enrollment = student[1]
+        self.__phone = student[2]
+        self.__email = student[3]
+        self.__uffmail = student[4]
+        self.__status = student[5]
 
 
     @staticmethod
     def csv_reader(file):
+        """ instantiates a student with the information read from a .csv file passed as an argument
+        """
         with open(file, encoding='utf_8') as arq:
             leitor_csv = reader(arq, delimiter=',')
 
             # each iteration of for reads a row as an array
             for row in leitor_csv:
                 if enrollment_number == row[1]:
-                    print(f"Nome: {row[0]}")
-                    break
+                    return Student(row)
+
+            return "Aluno não encontrado."
 
 
     def get_name(self):
@@ -64,4 +65,7 @@ class Student:
         return self.__status
 
 
-Student.csv_reader("alunos.csv")
+enrollment_number = input("Insira o número da matrícula:\n")
+
+aluno = Student.csv_reader("alunos.csv")
+print(aluno.get_name())
