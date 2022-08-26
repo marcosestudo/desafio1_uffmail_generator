@@ -7,11 +7,14 @@ from csv import reader
 
 registration_number = input("Insira o número da matrícula:\n")
 
-with open("alunos.csv", encoding='utf_8') as arq:
-    leitor_csv = reader(arq, delimiter=',')
+def csv_reader(file):
+    with open(file, encoding='utf_8') as arq:
+        leitor_csv = reader(arq, delimiter=',')
 
-    # each iteration of for reads a row as an array
-    for row in leitor_csv:
-        if registration_number == row[1]:
-            print(f"Nome: {row[0]}")
-            break
+        # each iteration of for reads a row as an array
+        for row in leitor_csv:
+            if registration_number == row[1]:
+                print(f"Nome: {row[0]}")
+                break
+
+csv_reader("alunos.csv")
