@@ -1,6 +1,5 @@
 """ file containing uffmail generator student class """
-from csv import reader
-
+from csv import reader, writer
 
 class Student:
     """ Class of student containing name, enrollment, telephone, email, uffmail (if any)
@@ -99,14 +98,32 @@ class Student:
 
             chosen_option = int(input()) - 1
 
-        return chosen_option
-
-
-    def uffmail_creator(self, options, chosen_option):
-        """ Creates the chosen uffmail and sends the password to the user phone number """
-        print(f'A criação de seu e-mail ({options[chosen_option]}) será feita nos próximos minutos.')
-        # atualizar o arquivo .csv
         return options[chosen_option]
+
+
+    def uffmail_creator(self, chosen_option, file):
+        """ Creates the chosen uffmail and updates the .csv file """
+        print(f'A criação de seu e-mail ({chosen_option}) será feita nos próximos minutos.')
+
+        # auxiliary array to create updated .csv file
+        new_file_array = []
+
+        with open(file, 'r', encoding='utf_8') as arq:
+            csv_reader = reader(arq, delimiter=',')
+
+            for row in csv_reader:
+                if self.__enrollment_number == row[1]:
+                    row[4] = chosen_option
+                    self.__uffmail = row[4]
+                    new_file_array.append(row)
+                else:
+                    new_file_array.append(row)
+
+        with open(file, 'w', encoding='utf_8', newline='') as arq:
+            csv_writer = writer(arq, delimiter=',')
+            csv_writer.writerows(new_file_array)
+
+        return self.__uffmail
 
 
     def password_sender(self):
