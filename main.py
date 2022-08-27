@@ -5,8 +5,14 @@ and returns a list of uffmail options based on the student's name.
 from student import Student
 
 
-enrollment_number = input("Insira o número da matrícula:\n")
+enrollment_number = input("Digite sua matrícula:\n")
 
 
-aluno = Student.csv_reader("alunos.csv", enrollment_number)
-print(aluno.get_name())
+student = Student.csv_reader("alunos.csv", enrollment_number)
+
+
+if student == 'Matrícula não encontrado.':
+    print('Matrícula não encontrada.')
+else:
+    options = student.uffmail_generator()
+    student.options_printer(options)

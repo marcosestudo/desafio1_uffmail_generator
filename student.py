@@ -56,6 +56,14 @@ class Student:
                         uffmail_options.append("".join(name for name in aux) + ('@id.uff.br'))
 
         return uffmail_options
+    
+
+    def options_printer(self, options):
+        """ Show the uffmail options in the screen """
+        print(f'{self.__name.split(" ")[0]}, por favor escolha uma das opções abaixo para o seu UFFMail')
+        for index, generated_string in enumerate(options):
+            print(f'{index + 1} - {generated_string}')
+
 
 
     def get_name(self):
