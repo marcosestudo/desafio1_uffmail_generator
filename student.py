@@ -5,8 +5,11 @@ from csv import reader
 class Student:
     """ Class of student containing name, enrollment, telephone, email, uffmail (if any)
     and subscription status (active or inactive);
-    method for reading .csv file with student information and
-    uffmail generation method based on student name
+    method for reading .csv file with student information;
+    uffmail generator method based on student name;
+    options printer method to show uffmail options list;
+    uffmail creator method to create the chosen uffmail option and
+    method to send sms message with the new uffmail password to the student phone.
     """
     def __init__(self, student):
         self.__name = student[0]
@@ -102,8 +105,19 @@ class Student:
     def uffmail_creator(self, options, chosen_option):
         """ Creates the chosen uffmail and sends the password to the user phone number """
         print(f'A criação de seu e-mail ({options[chosen_option]}) será feita nos próximos minutos.')
-
+        # atualizar o arquivo .csv
         return options[chosen_option]
+
+
+    def password_sender(self):
+        """ Sends a message containing the uffmail password to the student phone number """
+
+        if self.__uffmail:
+            print(f'Um SMS foi enviado para {self.__phone} com a sua senha de acesso.')
+            return 'Success'
+
+        print("Você ainda não possui um uffmail")
+        return 'err - inexistent uffmail'
 
 
     def get_name(self):

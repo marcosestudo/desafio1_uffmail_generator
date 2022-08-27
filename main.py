@@ -20,3 +20,4 @@ if student:
     if options:
         chosen_option = student.options_printer(options)
         student.uffmail_creator(options, chosen_option)
+        student.password_sender()
