@@ -40,17 +40,16 @@ class TestStudentMethods(unittest.TestCase):
 
     def test_student_uffmail_creator(self):
 		# Tests uffmail created by the method uffmail_creator() 
-        student = Student.csv_reader("alunos.csv", '111111')
-        options = student.uffmail_generator()
-        self.assertEqual(student.uffmail_creator(options, 11), 'alfabravocharlied@id.uff.br')
+        file = "alunos.csv"
 
-        student = Student.csv_reader("alunos.csv", '109647')
-        options = student.uffmail_generator()
-        self.assertEqual(student.uffmail_creator(options, 0), 'gabrielasantosribeiro@id.uff.br')
+        student = Student.csv_reader(file, '111111')
+        self.assertEqual(student.uffmail_creator(11, file), 'alfabravocharlied@id.uff.br')
 
-        student = Student.csv_reader("alunos.csv", '100591')
-        options = student.uffmail_generator()
-        self.assertEqual(student.uffmail_creator(options, 9), 'lucasoliveirab@id.uff.br')
+        student = Student.csv_reader(file, '109647')
+        self.assertEqual(student.uffmail_creator(0, file), 'gabrielasantosribeiro@id.uff.br')
+
+        student = Student.csv_reader(file, '100591')
+        self.assertEqual(student.uffmail_creator(9, file), 'lucasoliveirab@id.uff.br')
 
 
     def test_password_sender(self):
