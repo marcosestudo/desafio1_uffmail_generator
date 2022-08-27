@@ -67,7 +67,7 @@ class Student:
 
         print()
 
-        chosen_option = int(input()) + 1
+        chosen_option = int(input()) - 1
 
         return chosen_option
 
