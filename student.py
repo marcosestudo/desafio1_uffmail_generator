@@ -10,7 +10,7 @@ class Student:
     """
     def __init__(self, student):
         self.__name = student[0]
-        self.__enrollment = student[1]
+        self.__enrollment_number = student[1]
         self.__phone = student[2]
         self.__email = student[3]
         self.__uffmail = student[4]
@@ -29,7 +29,33 @@ class Student:
                 if enrollment_number == row[1]:
                     return Student(row)
 
-            return "Aluno não encontrado."
+            return 'Matrícula não encontrada.'
+
+
+    def uffmail_generator(self):
+        """ Generate uffmail options array to be chosen based on the user full name """
+        uffmail_options = []
+
+        full_name_array = self.get_name().lower().split(" ")
+
+        uffmail_options.append("".join(name for name in full_name_array) + ('@id.uff.br'))
+        uffmail_options.append(full_name_array[0] + full_name_array[1] + '@id.uff.br')
+        uffmail_options.append(full_name_array[0] + full_name_array[-1] + '@id.uff.br')
+        uffmail_options.append(full_name_array[0] + "_" + full_name_array[1] + '@id.uff.br')
+        uffmail_options.append(full_name_array[0] + "_" + full_name_array[-1] + '@id.uff.br')
+
+        for i in range(len(full_name_array)):
+            for j in range(len(full_name_array)):
+                # variável auxiliar com uma deep copy do full_name_array
+                aux = list(full_name_array)
+                if i==j:
+                    aux[i] = full_name_array[i][0]
+                    uffmail_options.append("".join(name for name in aux) + ('@id.uff.br'))
+                    if i < len(full_name_array) - 1:
+                        aux[i + 1] = full_name_array[i + 1][0]
+                        uffmail_options.append("".join(name for name in aux) + ('@id.uff.br'))
+
+        return uffmail_options
 
 
     def get_name(self):
@@ -39,7 +65,7 @@ class Student:
 
     def get_enrollment(self):
         """ returns student enrollment number """
-        return self.__enrollment
+        return self.__enrollment_number
 
 
     def get_phone(self):
