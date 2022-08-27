@@ -15,4 +15,5 @@ if student == 'Matrícula não encontrado.':
     print('Matrícula não encontrada.')
 else:
     options = student.uffmail_generator()
-    student.options_printer(options)
+    chosen_option = student.options_printer(options)
+    student.uffmail_creator(options, chosen_option)

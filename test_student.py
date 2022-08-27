@@ -2,6 +2,8 @@ import unittest
 from student import Student
 
 # To run tests
+# >>> python -m unittest
+# or
 # >>> python -m unittest -v
 class TestStudentMethods(unittest.TestCase):
 
@@ -50,6 +52,21 @@ class TestStudentMethods(unittest.TestCase):
             'lucasob@id.uff.br',
             'lucasoliveirab@id.uff.br'
         ])
+
+
+    def test_student_uffmail_creator(self):
+		# Tests uffmail array returned by the method uffmail_generator()
+        student = Student.csv_reader("alunos.csv", '105794')
+        options = student.uffmail_generator()
+        self.assertEqual(student.uffmail_creator(options, 4), 'luiza_ferreira@id.uff.br')
+
+        student = Student.csv_reader("alunos.csv", '100503')
+        options = student.uffmail_generator()
+        self.assertEqual(student.uffmail_creator(options, 0), 'vitorfernandescosta@id.uff.br')
+
+        student = Student.csv_reader("alunos.csv", '100591')
+        options = student.uffmail_generator()
+        self.assertEqual(student.uffmail_creator(options, 9), 'lucasoliveirab@id.uff.br')
 
 
 if __name__ == '__main__':
