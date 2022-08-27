@@ -1,12 +1,31 @@
-import unittest
+from unittest import TestCase, mock, main
+from csv import reader, writer
 from student import Student
+
+
+def reset_file(file):
+    """ reset the file alunos.csv to the original state before run the tests """
+    original_state_file = 'alunos_original.csv'
+    original_state_array = []
+
+    with open(original_state_file, 'r', encoding='utf_8') as arq:
+        csv_reader = reader(arq, delimiter=',')
+
+        with open(original_state_file, 'r', encoding='utf_8', newline='') as original, open(file, 'w', encoding='utf_8', newline='') as file:
+            csv_reader = reader(original, delimiter=',')
+            csv_writer = writer(file, delimiter=',')
+
+            for row in csv_reader:
+                original_state_array.append(row)
+
+            csv_writer.writerows(original_state_array)
+
 
 # To run tests
 # >>> python -m unittest
 # or
 # >>> python -m unittest -v
-class TestStudentMethods(unittest.TestCase):
-
+class TestStudentMethods(TestCase):
     def test_student_name(self):
 		# Tests if the student returned by the Student.csv_reader() method is correct by name
         self.assertEqual(Student.csv_reader('alunos.csv', '105794').get_name(), 'Luiza Fernandes Ferreira')
@@ -38,18 +57,24 @@ class TestStudentMethods(unittest.TestCase):
         ])
 
 
-    def test_student_uffmail_creator(self):
-		# Tests uffmail created by the method uffmail_creator() 
-        file = "alunos.csv"
+    @mock.patch('student.input', create=True)
+    def test_student_uffmail_creator(self, mocked_input):
+		# Tests uffmail created by the method uffmail_creator()
+        file = 'alunos.csv'
+        reset_file(file)
 
-        student = Student.csv_reader(file, '111111')
-        self.assertEqual(student.uffmail_creator(11, file), 'alfabravocharlied@id.uff.br')
 
-        student = Student.csv_reader(file, '109647')
-        self.assertEqual(student.uffmail_creator(0, file), 'gabrielasantosribeiro@id.uff.br')
+        student = Student.csv_reader("alunos.csv", '109647')
+        options = student.uffmail_generator()
+        mocked_input.side_effect = ['7']
+        chosen_option = student.options_printer(options)
+        self.assertEqual(student.uffmail_creator(chosen_option, file), 'gsribeiro@id.uff.br')
 
-        student = Student.csv_reader(file, '100591')
-        self.assertEqual(student.uffmail_creator(9, file), 'lucasoliveirab@id.uff.br')
+        student = Student.csv_reader("alunos.csv", '111111')
+        options = student.uffmail_generator()
+        mocked_input.side_effect = ['12']
+        chosen_option = student.options_printer(options)
+        self.assertEqual(student.uffmail_creator(chosen_option, file), 'alfabravocharlied@id.uff.br')
 
 
     def test_password_sender(self):
@@ -60,4 +85,4 @@ class TestStudentMethods(unittest.TestCase):
 
 
 if __name__ == '__main__':
-    unittest.main()
+    main()
