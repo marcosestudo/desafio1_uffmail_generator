@@ -29,11 +29,23 @@ class Student:
                 if enrollment_number == row[1]:
                     return Student(row)
 
-        return 'Matrícula não encontrada.'
+        print('Matrícula não encontrada.')
+
+        return 0
 
 
     def uffmail_generator(self):
-        """ Generate uffmail options array to be chosen based on the user full name """
+        """ Checks if the user have an active status and no uffmail. Then, generate an uffmail
+        options array to be chosen based on the user full name
+        """
+        if self.__status == 'Inativo':
+            print('Você não possui matrícula ativa.')
+            return 0
+
+        if self.__uffmail:
+            print('Você já possui um uffmail.')
+            return 0
+
         uffmail_options = []
 
         full_name_array = self.get_name().lower().split(" ")
@@ -79,7 +91,7 @@ class Student:
 
             for index, generated_string in enumerate(options):
                 print(f'{index + 1} - {generated_string}')
-            
+
             print()
 
             chosen_option = int(input()) - 1
