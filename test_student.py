@@ -39,7 +39,7 @@ class TestStudentMethods(unittest.TestCase):
 
 
     def test_student_uffmail_creator(self):
-		# Tests uffmail array returned by the method uffmail_generator()
+		# Tests uffmail created by the method uffmail_creator() 
         student = Student.csv_reader("alunos.csv", '111111')
         options = student.uffmail_generator()
         self.assertEqual(student.uffmail_creator(options, 11), 'alfabravocharlied@id.uff.br')
@@ -51,6 +51,13 @@ class TestStudentMethods(unittest.TestCase):
         student = Student.csv_reader("alunos.csv", '100591')
         options = student.uffmail_generator()
         self.assertEqual(student.uffmail_creator(options, 9), 'lucasoliveirab@id.uff.br')
+
+
+    def test_password_sender(self):
+		# Tests the return of the method passord_sender()
+        self.assertEqual(Student.csv_reader('alunos.csv', '105794').password_sender(), 'Success')
+
+        self.assertEqual(Student.csv_reader('alunos.csv', '100406').password_sender(), 'err - inexistent uffmail')
 
 
 if __name__ == '__main__':
