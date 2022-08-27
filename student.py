@@ -59,7 +59,7 @@ class Student:
 
 
     def options_printer(self, options):
-        """ Show the uffmail options in the screen """
+        """ Show the uffmail options in the screen and return the chosen number """
         print(f'\n{self.__name.split(" ")[0]}, por favor escolha uma das opções abaixo para o seu UFFMail')
 
         for index, generated_string in enumerate(options):
@@ -68,6 +68,21 @@ class Student:
         print()
 
         chosen_option = int(input()) - 1
+
+        valid_options = []
+
+        for i in range(len(options)):
+            valid_options.append(i)
+
+        while chosen_option not in valid_options:
+            print('\nEscolha uma opção válida')
+
+            for index, generated_string in enumerate(options):
+                print(f'{index + 1} - {generated_string}')
+            
+            print()
+
+            chosen_option = int(input()) - 1
 
         return chosen_option
 
