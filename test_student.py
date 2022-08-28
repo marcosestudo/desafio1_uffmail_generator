@@ -79,6 +79,12 @@ class TestStudentMethods(TestCase):
         chosen_option = student.options_printer(options)
         self.assertEqual(student.uffmail_creator(chosen_option, file), 'alfabravocharlied@id.uff.br')
 
+        student = Student.csv_reader("alunos.csv", '222222')
+        options = student.uffmail_generator()
+        mocked_input.side_effect = ['1']
+        chosen_option = student.options_printer(options)
+        self.assertEqual(student.uffmail_creator(chosen_option, file), 'joaoameliocorintio@id.uff.br')
+
 
     def test_password_sender(self):
 		# Tests the return of the method passord_sender()
