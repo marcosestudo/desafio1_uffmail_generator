@@ -25,13 +25,17 @@ class Student:
         """ instantiates a student with the information read from a .csv file passed as an argument
         """
         with open(file, encoding='utf_8') as arq:
-            leitor_csv = reader(arq, delimiter=',')
+            csv_reader = reader(arq, delimiter=',')
 
             # each iteration of for reads a row as an array
-            for row in leitor_csv:
-                if enrollment_number == row[1]:
-                    # if finds the enrollment, instantiates a student
-                    return Student(row)
+            for row in csv_reader:
+                # testing if return error for trying to read an empty line and ignore then
+                try:
+                    if enrollment_number == row[1]:
+                        # if finds the enrollment, instantiates a student
+                        return Student(row)
+                except IndexError:
+                    pass
 
         print('\nMatrícula não encontrada.')
 
@@ -90,6 +94,7 @@ class Student:
 
         chosen_option = input()
 
+        #  testing if the user are trying to pass a non numeric digit as an imput
         try:
             chosen_option = int(chosen_option) - 1
         except ValueError:
@@ -132,11 +137,15 @@ class Student:
 
             # filling the array with the updated document's rows
             for row in csv_reader:
-                if self.__enrollment_number == row[1]:
-                    row[4] = chosen_option
-                    self.__uffmail = row[4]
-                    new_file_array.append(row)
-                else:
+                # testing if return error for trying to read an empty line and ignore then
+                try:
+                    if self.__enrollment_number == row[1]:
+                        row[4] = chosen_option
+                        self.__uffmail = row[4]
+                        new_file_array.append(row)
+                    else:
+                        new_file_array.append(row)
+                except IndexError:
                     new_file_array.append(row)
 
         # openig in write mode for update
