@@ -40,14 +40,14 @@ class TestStudentMethods(TestCase):
         self.assertEqual(Student.csv_reader('alunos.csv', '123456'), 0)
 
 
-    def test_student_uffmail_generator(self):
-		# Tests uffmail array returned by the method uffmail_generator()
+    def test_student_uffmail_options_generator(self):
+		# Tests uffmail array returned by the method uffmail_options_generator()
         reset_file()
-        self.assertEqual(Student.csv_reader('alunos.csv', '105794').uffmail_generator(), 0)
+        self.assertEqual(Student.csv_reader('alunos.csv', '105794').uffmail_options_generator(), 0)
 
-        self.assertEqual(Student.csv_reader('alunos.csv', '101369').uffmail_generator(), 0)
+        self.assertEqual(Student.csv_reader('alunos.csv', '101369').uffmail_options_generator(), 0)
 
-        self.assertEqual(Student.csv_reader('alunos.csv', '100591').uffmail_generator(), [
+        self.assertEqual(Student.csv_reader('alunos.csv', '100591').uffmail_options_generator(), [
             'lucasoliveirabarros@id.uff.br',
             'lucasoliveira@id.uff.br',
             'lucasbarros@id.uff.br',
@@ -68,19 +68,19 @@ class TestStudentMethods(TestCase):
         file = 'alunos.csv'
 
         student = Student.csv_reader("alunos.csv", '109647')
-        options = student.uffmail_generator()
+        options = student.uffmail_options_generator()
         mocked_input.side_effect = ['7']
         chosen_option = student.options_printer(options)
         self.assertEqual(student.uffmail_creator(chosen_option, file), 'gsribeiro@id.uff.br')
 
         student = Student.csv_reader("alunos.csv", '111111')
-        options = student.uffmail_generator()
+        options = student.uffmail_options_generator()
         mocked_input.side_effect = ['12']
         chosen_option = student.options_printer(options)
         self.assertEqual(student.uffmail_creator(chosen_option, file), 'alfabravocharlied@id.uff.br')
 
         student = Student.csv_reader("alunos.csv", '222222')
-        options = student.uffmail_generator()
+        options = student.uffmail_options_generator()
         mocked_input.side_effect = ['1']
         chosen_option = student.options_printer(options)
         self.assertEqual(student.uffmail_creator(chosen_option, file), 'joaoameliocorintio@id.uff.br')

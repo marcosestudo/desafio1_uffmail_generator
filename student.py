@@ -30,23 +30,24 @@ class Student:
             # each iteration of for reads a row as an array
             for row in leitor_csv:
                 if enrollment_number == row[1]:
+                    # if finds the enrollment, instantiates a student
                     return Student(row)
 
-        print('Matrícula não encontrada.')
+        print('\nMatrícula não encontrada.')
 
         return 0
 
 
-    def uffmail_generator(self):
+    def uffmail_options_generator(self):
         """ Checks if the user have an active status and no uffmail. Then, generate an uffmail
         options array to be chosen based on the user full name
         """
         if self.__status == 'Inativo':
-            print('Você não possui matrícula ativa.')
+            print('\nVocê não possui matrícula ativa.')
             return 0
 
         if self.__uffmail:
-            print('Você já possui um uffmail.')
+            print('\nVocê já possui um uffmail.')
             return 0
 
         uffmail_options = []
@@ -107,7 +108,7 @@ class Student:
 
     def uffmail_creator(self, chosen_option, file):
         """ Creates the chosen uffmail and updates the .csv file """
-        print(f'A criação de seu e-mail ({chosen_option}) será feita nos próximos minutos.')
+        print(f'\nA criação de seu e-mail ({chosen_option}) será feita nos próximos minutos.')
 
         # auxiliary array to create updated .csv file
         new_file_array = []
