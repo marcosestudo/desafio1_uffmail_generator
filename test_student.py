@@ -3,7 +3,13 @@ from csv import reader, writer
 from student import Student
 
 
-def reset_file(file):
+# To run tests
+# >>> python -m unittest
+# or
+# >>> python -m unittest -v
+
+
+def reset_file(file='alunos.csv'):
     """ reset the file alunos.csv to the original state before run the tests """
     original_state_file = 'alunos_original.csv'
     original_state_array = []
@@ -21,13 +27,10 @@ def reset_file(file):
             csv_writer.writerows(original_state_array)
 
 
-# To run tests
-# >>> python -m unittest
-# or
-# >>> python -m unittest -v
 class TestStudentMethods(TestCase):
     def test_student_name(self):
 		# Tests if the student returned by the Student.csv_reader() method is correct by name
+        reset_file()
         self.assertEqual(Student.csv_reader('alunos.csv', '105794').get_name(), 'Luiza Fernandes Ferreira')
 
         self.assertEqual(Student.csv_reader('alunos.csv', '100503').get_name(), 'Vitor Fernandes Costa')
@@ -39,6 +42,7 @@ class TestStudentMethods(TestCase):
 
     def test_student_uffmail_generator(self):
 		# Tests uffmail array returned by the method uffmail_generator()
+        reset_file()
         self.assertEqual(Student.csv_reader('alunos.csv', '105794').uffmail_generator(), 0)
 
         self.assertEqual(Student.csv_reader('alunos.csv', '101369').uffmail_generator(), 0)
@@ -59,10 +63,9 @@ class TestStudentMethods(TestCase):
 
     @mock.patch('student.input', create=True)
     def test_student_uffmail_creator(self, mocked_input):
-		# Tests uffmail created by the method uffmail_creator()
+        # Tests uffmail created by the method uffmail_creator()
+        reset_file()
         file = 'alunos.csv'
-        reset_file(file)
-
 
         student = Student.csv_reader("alunos.csv", '109647')
         options = student.uffmail_generator()
@@ -79,6 +82,7 @@ class TestStudentMethods(TestCase):
 
     def test_password_sender(self):
 		# Tests the return of the method passord_sender()
+        reset_file()
         self.assertEqual(Student.csv_reader('alunos.csv', '105794').password_sender(), 'Success')
 
         self.assertEqual(Student.csv_reader('alunos.csv', '100406').password_sender(), 'err - inexistent uffmail')
