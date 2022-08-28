@@ -88,7 +88,12 @@ class Student:
 
         print()
 
-        chosen_option = int(input()) - 1
+        chosen_option = input()
+
+        try:
+            chosen_option = int(chosen_option) - 1
+        except ValueError:
+            chosen_option = -1
 
         valid_options = []
 
@@ -104,7 +109,12 @@ class Student:
 
             print()
 
-            chosen_option = int(input()) - 1
+            chosen_option = input()
+
+            try:
+                chosen_option = int(chosen_option) - 1
+            except ValueError:
+                chosen_option = -1
 
         return options[chosen_option]
 
