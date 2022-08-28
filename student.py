@@ -1,5 +1,6 @@
 """ file containing uffmail generator student class """
 from csv import reader, writer
+from unicodedata import normalize
 
 class Student:
     """ Class of student containing name, enrollment, telephone, email, uffmail (if any)
@@ -50,7 +51,10 @@ class Student:
 
         uffmail_options = []
 
-        full_name_array = self.get_name().lower().split(" ")
+        # removing accents and uppercased letters from name before generate the uffmails options list
+        normalized_full_name = normalize('NFKD', self.get_name()).encode('ASCII','ignore').decode('ASCII').lower()
+        # creating an array to generate the options
+        full_name_array = normalized_full_name.split(" ")
 
         uffmail_options.append("".join(name for name in full_name_array) + ('@id.uff.br'))
         uffmail_options.append(full_name_array[0] + full_name_array[1] + '@id.uff.br')
