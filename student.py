@@ -68,9 +68,11 @@ class Student:
                 # deep copy auxiliary variable
                 aux = list(full_name_array)
                 if i==j:
+                    # creating an option with one abbreviated name and pushing to the options array
                     aux[i] = full_name_array[i][0]
                     uffmail_options.append("".join(name for name in aux) + ('@id.uff.br'))
                     if i < len(full_name_array) - 1:
+                        # creating an option with two abbreviated name and pushing to the options array
                         aux[i + 1] = full_name_array[i + 1][0]
                         uffmail_options.append("".join(name for name in aux) + ('@id.uff.br'))
 
@@ -78,7 +80,7 @@ class Student:
 
 
     def options_printer(self, options):
-        """ Show the uffmail options in the screen and return the chosen number """
+        """ Shows the uffmail options in the screen and return the chosen one """
         print(f'\n{self.__name.split(" ")[0]}, por favor escolha uma das opções abaixo para o seu UFFMail')
 
         for index, generated_string in enumerate(options):
@@ -90,6 +92,7 @@ class Student:
 
         valid_options = []
 
+        # creating an array with valid number options based on name length
         for i in range(len(options)):
             valid_options.append(i)
 
@@ -110,12 +113,14 @@ class Student:
         """ Creates the chosen uffmail and updates the .csv file """
         print(f'\nA criação de seu e-mail ({chosen_option}) será feita nos próximos minutos.')
 
-        # auxiliary array to create updated .csv file
+        # auxiliary array to create the updated .csv file
         new_file_array = []
 
+        # opening the document in read mode to fill the array with the updated document information
         with open(file, 'r', encoding='utf_8') as arq:
             csv_reader = reader(arq, delimiter=',')
 
+            # filling the array with the updated document's rows
             for row in csv_reader:
                 if self.__enrollment_number == row[1]:
                     row[4] = chosen_option
@@ -124,6 +129,7 @@ class Student:
                 else:
                     new_file_array.append(row)
 
+        # openig in write mode for update
         with open(file, 'w', encoding='utf_8', newline='') as arq:
             csv_writer = writer(arq, delimiter=',')
             csv_writer.writerows(new_file_array)
