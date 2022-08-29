@@ -87,8 +87,8 @@ class Student:
         """ Shows the uffmail options in the screen and return the chosen one """
         print(f'\n{self.__name.split(" ")[0]}, por favor escolha uma das opções abaixo para o seu UFFMail')
 
-        for index, generated_string in enumerate(options):
-            print(f'{index + 1} - {generated_string}')
+        for index, uffmail_option in enumerate(options):
+            print(f'{index + 1} - {uffmail_option}')
 
         print()
 
@@ -109,8 +109,8 @@ class Student:
         while chosen_option not in valid_options:
             print('\nEscolha uma opção válida')
 
-            for index, generated_string in enumerate(options):
-                print(f'{index + 1} - {generated_string}')
+            for index, uffmail_option in enumerate(options):
+                print(f'{index + 1} - {uffmail_option}')
 
             print()
 

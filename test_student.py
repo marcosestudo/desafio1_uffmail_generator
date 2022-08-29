@@ -87,17 +87,7 @@ class TestStudentMethods(TestCase):
 
         student = Student.csv_reader("alunos.csv", '333333')
         options = student.uffmail_options_generator()
-        mocked_input.side_effect = ['a']
-        mocked_input.side_effect = ['@']
-        mocked_input.side_effect = ['*']
-        mocked_input.side_effect = ['/']
-        mocked_input.side_effect = ['+']
-        mocked_input.side_effect = ['.']
-        mocked_input.side_effect = ['!']
-        mocked_input.side_effect = ['=']
-        mocked_input.side_effect = ['5.5']
-        mocked_input.side_effect = ['3,1']
-        mocked_input.side_effect = ['5']
+        mocked_input.side_effect = ['a', '@', '*', '/', '+', '.', '!', '=', '5.5', '3,1', '5']
         chosen_option = student.options_printer(options)
         self.assertEqual(student.uffmail_creator(chosen_option, file), 'nome_ccccc@id.uff.br')
 
