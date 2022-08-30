@@ -91,6 +91,7 @@ class TestStudentMethods(TestCase):
         chosen_option = student.options_printer(options)
         self.assertEqual(student.uffmail_creator(chosen_option, file), 'nome_ccccc@id.uff.br')
 
+
     def test_password_sender(self):
 		# Tests the return of the method passord_sender()
         reset_file()

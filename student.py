@@ -1,9 +1,13 @@
 """ file containing uffmail generator student class """
+# annotations and Literal imported for typing hinting
+from __future__ import annotations
+from typing import Literal
 from csv import reader, writer
 from unicodedata import normalize
 
+
 class Student:
-    """ Class of student containing name, enrollment, telephone, email, uffmail (if any)
+    """ Class of student containing name, enrollment number, telephone, email, uffmail (if any)
     and subscription status (active or inactive);
     method for reading .csv file with student information;
     uffmail generator method based on student name;
@@ -21,7 +25,7 @@ class Student:
 
 
     @staticmethod
-    def csv_reader(file, enrollment_number):
+    def csv_reader(file: str, enrollment_number: str) -> (Student | Literal[0]):
         """ instantiates a student with the information read from a .csv file passed as an argument
         """
         with open(file, encoding='utf_8') as arq:
@@ -42,7 +46,7 @@ class Student:
         return 0
 
 
-    def uffmail_options_generator(self):
+    def uffmail_options_generator(self) -> (list | Literal[0]):
         """ Checks if the user have an active status and no uffmail. Then, generate an uffmail
         options array to be chosen based on the user full name
         """
@@ -83,7 +87,7 @@ class Student:
         return uffmail_options
 
 
-    def options_printer(self, options):
+    def options_printer(self, options: list) -> str:
         """ Shows the uffmail options in the screen and return the chosen one """
         print(f'\n{self.__name.split(" ")[0]}, por favor escolha uma das opções abaixo para o seu UFFMail')
 
@@ -124,9 +128,9 @@ class Student:
         return options[chosen_option]
 
 
-    def uffmail_creator(self, chosen_option, file):
+    def uffmail_creator(self, chosen_option: str, file: str) -> str:
         """ Creates the chosen uffmail and updates the .csv file """
-        print(f'\nA criação de seu e-mail ({chosen_option}) será feita nos próximos minutos.')
+        print(f'A criação de seu e-mail ({chosen_option}) será feita nos próximos minutos.')
 
         # auxiliary array to create the updated .csv file
         new_file_array = []
@@ -156,7 +160,7 @@ class Student:
         return self.__uffmail
 
 
-    def password_sender(self):
+    def password_sender(self) -> Literal['Success', 'err - inexistent uffmail']:
         """ Sends a message containing the uffmail password to the student phone number """
 
         if self.__uffmail:
@@ -167,31 +171,31 @@ class Student:
         return 'err - inexistent uffmail'
 
 
-    def get_name(self):
+    def get_name(self) -> str:
         """ returns student name """
         return self.__name
 
 
-    def get_enrollment(self):
+    def get_enrollment(self) -> str:
         """ returns student enrollment number """
         return self.__enrollment_number
 
 
-    def get_phone(self):
+    def get_phone(self) -> str:
         """ returns student phone number """
         return self.__phone
 
 
-    def get_email(self):
+    def get_email(self) -> str:
         """ returns student email """
         return self.__email
 
 
-    def get_uffmail(self):
+    def get_uffmail(self) -> str:
         """ returns student uffmail """
         return self.__uffmail
 
 
-    def get_status(self):
+    def get_status(self) -> str:
         """ returns student subscription status """
         return self.__status
