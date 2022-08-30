@@ -70,9 +70,9 @@ class Student:
         full_name_array = normalized_full_name.split(" ")
 
         uffmail_options.append("".join(name for name in full_name_array) + ('@id.uff.br'))
-        uffmail_options.append(full_name_array[0] + full_name_array[1] + '@id.uff.br')
+        uffmail_options.append(full_name_array[0] + full_name_array[-2] + '@id.uff.br')
         uffmail_options.append(full_name_array[0] + full_name_array[-1] + '@id.uff.br')
-        uffmail_options.append(full_name_array[0] + "_" + full_name_array[1] + '@id.uff.br')
+        uffmail_options.append(full_name_array[0] + "_" + full_name_array[-2] + '@id.uff.br')
         uffmail_options.append(full_name_array[0] + "_" + full_name_array[-1] + '@id.uff.br')
 
         for i in range(len(full_name_array)):
