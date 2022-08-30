@@ -2,6 +2,8 @@
 # annotations and Literal imported for typing hinting
 from __future__ import annotations
 from typing import Literal
+# re inported for regular expressions
+import re
 from csv import reader, writer
 from unicodedata import normalize
 
@@ -62,6 +64,8 @@ class Student:
 
         # removing accents and uppercased letters from name before generate the uffmails options list
         normalized_full_name = normalize('NFKD', self.get_name()).encode('ASCII','ignore').decode('ASCII').lower()
+        # checking if name have any invalid characters and removing them
+        normalized_full_name = re.sub("[^a-zA-Z0-9-_.ç ]", "", normalized_full_name)
         # creating an array to generate the options
         full_name_array = normalized_full_name.split(" ")
 
