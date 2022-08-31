@@ -17,7 +17,7 @@ class Student:
     uffmail creator method to create the chosen uffmail option and
     method to send sms message with the new uffmail password to the student phone.
     """
-    def __init__(self, student):
+    def __init__(self, student: list) -> None:
         self.__name = student[0]
         self.__enrollment_number = student[1]
         self.__phone = student[2]

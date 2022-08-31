@@ -1,5 +1,5 @@
 """ uffmail generator.
-Reads a .csv file with students informations, searches for a student by enrollment number,
+Reads a .csv file with students informations, searchs for a student by enrollment number,
 returns a list of uffmail options based on the student's name to be chosen, create the ufmail and
 send the password to the estudent phone.
 """
