@@ -48,7 +48,7 @@ class Student:
         return 0
 
 
-    def uffmail_options_generator(self) -> (list | Literal[0]):
+    def uffmail_options_generator(self, file: str) -> (list | Literal[0]):
         """ Checks if the user have an active status and no uffmail. Then, generate an uffmail
         options array to be chosen based on the user full name
         """
@@ -69,11 +69,11 @@ class Student:
         # creating an array to generate the options
         full_name_array = normalized_full_name.split(" ")
 
-        uffmail_options.append("".join(name for name in full_name_array) + ('@id.uff.br'))
-        uffmail_options.append(full_name_array[0] + full_name_array[-2] + '@id.uff.br')
-        uffmail_options.append(full_name_array[0] + full_name_array[-1] + '@id.uff.br')
-        uffmail_options.append(full_name_array[0] + "_" + full_name_array[-2] + '@id.uff.br')
-        uffmail_options.append(full_name_array[0] + "_" + full_name_array[-1] + '@id.uff.br')
+        uffmail_options.append(f'{"".join(name for name in full_name_array)}@id.uff.br')
+        uffmail_options.append(f'{full_name_array[0]}{full_name_array[-2]}@id.uff.br')
+        uffmail_options.append(f'{full_name_array[0]}{full_name_array[-1]}@id.uff.br')
+        uffmail_options.append(f'{full_name_array[0]}_{full_name_array[-2]}@id.uff.br')
+        uffmail_options.append(f'{full_name_array[0]}_{full_name_array[-1]}@id.uff.br')
 
         for i in range(len(full_name_array)):
             for j in range(len(full_name_array)):
@@ -82,11 +82,23 @@ class Student:
                 if i==j:
                     # creating an option with one abbreviated name and pushing to the options array
                     aux[i] = full_name_array[i][0]
-                    uffmail_options.append("".join(name for name in aux) + ('@id.uff.br'))
+                    uffmail_options.append(f'{"".join(name for name in aux)}@id.uff.br')
                     if i < len(full_name_array) - 1:
                         # creating an option with two abbreviated name and pushing to the options array
                         aux[i + 1] = full_name_array[i + 1][0]
-                        uffmail_options.append("".join(name for name in aux) + ('@id.uff.br'))
+                        uffmail_options.append(f'{"".join(name for name in aux)}@id.uff.br')
+
+        # checking if generated uffmails already exists in the .csv file and removing then
+        with open(file, encoding='utf_8') as arq:
+            csv_reader = reader(arq, delimiter=',')
+
+            # each iteration of for reads a row as an array
+            for row in csv_reader:
+                try:
+                    if row[4] in uffmail_options:
+                        uffmail_options.remove(row[4])
+                except IndexError:
+                    pass
 
         return uffmail_options
 

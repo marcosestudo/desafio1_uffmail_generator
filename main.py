@@ -14,7 +14,7 @@ def main():
 
     # if enrollment number are not find, the student can´t be instantiated, the program is finished
     if student:
-        options = student.uffmail_options_generator()
+        options = student.uffmail_options_generator(CSV_FILE)
 
         # if student have not active status or already have an uffmail, can't see the options of uffmail_generator, the program is finished
         if options:
